@@ -1,0 +1,22 @@
+{
+  "name": "sh8email-smtp-server",
+  "version": "1.0.0",
+  "description": "SMTP Server for sh8.email",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "triplepy",
+  "license": "MIT",
+  "dependencies": {
+    "mailparser": "^2.0.2",
+    "smtp-server": "^2.0.2",
+    "winston": "^2.3.1"
+  },
+  "devDependencies": {
+    "eslint": "^3.17.1",
+    "eslint-config-airbnb-base": "^11.1.1",
+    "eslint-plugin-import": "^2.2.0",
+    "nodemailer": "^3.1.4"
+  }
+}
