@@ -1,8 +1,8 @@
-const smtpServerConfig = require('../smtp-server-config');
+const host = 'localhost';
 
 module.exports = {
-  host: 'localhost',
+  host,
   port: 2525,
-  smtpServerConfig: smtpServerConfig.development,
   logLevel: 'debug',
+  url: `http://${host}`,
 };

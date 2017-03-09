@@ -1,8 +1,8 @@
-const smtpServerConfig = require('../smtp-server-config');
+const host = 'sh8.email';
 
 module.exports = {
-  host: 'sh8.email',
+  host,
   port: 25,
-  smtpServerConfig: smtpServerConfig.production,
   logLevel: 'info',
+  url: `https://${host}`,
 };
