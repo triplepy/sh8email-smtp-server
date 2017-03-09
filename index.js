@@ -11,5 +11,5 @@ server.on('error', (err) => {
   winston.error(err);
 });
 server.listen(config.port, config.host, () => {
-  winston.info(`Server is listening on localhost:${config.port}`);
+  winston.info(`Server is listening on ${config.host}:${config.port}`);
 });
