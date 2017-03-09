@@ -7,8 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "triplepy",
-  "license": "MIT",
+  "license": "GPL2",
   "dependencies": {
+    "config": "^1.25.1",
     "mailparser": "^2.0.2",
     "smtp-server": "^2.0.2",
     "winston": "^2.3.1"
