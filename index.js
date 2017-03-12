@@ -4,6 +4,7 @@ const server = require('./server');
 
 /* Set logging level */
 winston.level = config.logLevel;
+winston.handleExceptions();
 
 /* Run the server */
 server.listen(config.port, config.host, () => {

@@ -11,8 +11,10 @@
   "dependencies": {
     "config": "^1.25.1",
     "email-addresses": "^2.0.2",
+    "lodash": "^4.17.4",
     "mailparser": "^2.0.2",
     "request": "^2.80.0",
+    "request-promise": "^4.1.1",
     "smtp-server": "^2.0.2",
     "url-join": "^1.1.0",
     "winston": "^2.3.1"

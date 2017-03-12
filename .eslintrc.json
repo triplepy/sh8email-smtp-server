@@ -5,6 +5,7 @@
   ],
   "rules": {
     "no-console": "off",
-    "no-unused-expressions": ["error", {"allowShortCircuit": true}]
+    "no-unused-expressions": ["error", {"allowShortCircuit": true}],
+    "no-else-return": "off"
   }
 }
