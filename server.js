@@ -25,8 +25,8 @@ const makeSmtpConfig = () => {
       });
       stream.on('end', () => {
         simpleParser(buffer).then((mail) => {
-          const recipients = session.envelope.rcptTo.map((address) => {
-            const local = parseOneAddress(address.address).local;
+          const recipients = session.envelope.rcptTo.map(({ address }) => {
+            const local = parseOneAddress(address).local;
             const secretSeparator = '__';
             const hasSecretCode = lc => _.includes(lc, secretSeparator);
             if (hasSecretCode(local)) {
