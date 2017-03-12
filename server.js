@@ -48,9 +48,17 @@ const makeSmtpConfig = () => {
             rp.post({
               uri: urljoin(config.url, `rest/mail/${recipient}`),
               form: {
-                // TODO Add more fields. e.g. from, to, cc, bcc, date, text, html, attachments
                 subject: mail.subject,
                 secretCode,
+                to: mail.to.value,
+                from: mail.from.value,
+                cc: mail.cc.value,
+                bcc: mail.bcc.value,
+                date: mail.date,
+                messageId: mail.messageId,
+                html: mail.html,
+                text: mail.text,
+                // TODO Upload attachment files and datas.
               },
             })
           ));
