@@ -44,29 +44,36 @@ const makeSmtpConfig = () => {
               };
             }
           });
-          const requests = recipients.map(({ recipient, secretCode }) => (
-            rp.post({
-              uri: urljoin(config.url, `rest/mail/${recipient}`),
-              form: {
+          const requests = recipients.map(({ recipient, secretCode }) => {
+            const to = mail.to ? mail.to.value : [];
+            const from = mail.from ? mail.from.value : [];
+            const cc = mail.cc ? mail.cc.value : [];
+            const bcc = mail.bcc ? mail.bcc.value : [];
+            return rp.post({
+              uri: urljoin(config.url, 'api/mail/create'),
+              body: {
                 subject: mail.subject,
+                recipient,
                 secretCode,
-                to: mail.to.value,
-                from: mail.from.value,
-                cc: mail.cc.value,
-                bcc: mail.bcc.value,
+                to,
+                from,
+                cc,
+                bcc,
                 date: mail.date,
                 messageId: mail.messageId,
                 html: mail.html,
                 text: mail.text,
                 // TODO Upload attachment files and datas.
               },
-            })
-          ));
+              json: true,
+            });
+          });
           return Promise.all(requests);
         }).then((bodies) => {
           winston.debug(bodies);
           callback();
         }).catch((err) => {
+          winston.error(err);
           callback(err);
         });
       });
