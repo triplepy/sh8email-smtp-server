@@ -18,6 +18,6 @@ transporter.sendMail({
     console.error(util.inspect(err));
   } else {
     console.info('Email was sent successfully.');
-    transporter.close();
   }
+  transporter.close();
 });
