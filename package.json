@@ -15,6 +15,7 @@
     "mailparser": "^2.0.2",
     "request": "^2.80.0",
     "request-promise": "^4.1.1",
+    "slack-winston": "0.0.7",
     "smtp-server": "^2.0.2",
     "url-join": "^1.1.0",
     "winston": "^2.3.1"
