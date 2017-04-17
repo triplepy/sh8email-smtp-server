@@ -1,11 +1,26 @@
 {
-  "extends": "airbnb-base",
+  "extends": [
+    "airbnb-base",
+    "plugin:promise/recommended"
+  ],
   "plugins": [
-    "import"
+    "import",
+    "promise"
   ],
   "rules": {
     "no-console": "off",
     "no-unused-expressions": ["error", {"allowShortCircuit": true}],
-    "no-else-return": "off"
+    "no-else-return": "off",
+    "no-param-reassign": ["error", {"props": true, "ignorePropertyModificationsFor": ["res"]}],
+    "no-underscore-dangle": "off",
+    "import/no-extraneous-dependencies": ["off"],
+    "space-before-function-paren": "off",
+    "func-names": "off",
+    "newline-per-chained-call": "off",
+    "no-unused-vars": ["error", {"args": "none"}]
+  },
+  "env": {
+    "node": true,
+    "mocha": true
   }
 }
