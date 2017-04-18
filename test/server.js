@@ -44,7 +44,7 @@ describe('SMTP server', function() {
 
       const postStubArg = postStub.args[0][0];
       const { uri, body } = postStubArg;
-      uri.should.equal(`http://${config.host}/api/mail/create`);
+      uri.should.endWith('/api/mail/create');
       body.subject.should.equal(expected.subject);
       body.text.trim().should.equal(expected.text);
       body.from.should.deepEqual(expected.from);
