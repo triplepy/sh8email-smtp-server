@@ -13,6 +13,20 @@ const sendmail = require('../testutils/sendmail');
 describe('SMTP server', function() {
   let postStub;
 
+  const assertPostStub = (stub, expected, option) => {
+    stub.callCount.should.equal(option.callCount);
+
+    const postStubArg = stub.args[0][0];
+    const { uri, body } = postStubArg;
+    uri.should.endWith('/api/mail/create');
+    body.subject.should.equal(expected.subject);
+    body.text.trim().should.equal(expected.text);
+    body.from.should.deepEqual(expected.from);
+    body.to.should.deepEqual(expected.to);
+    body.cc.should.deepEqual(expected.cc);
+    body.bcc.should.deepEqual(expected.bcc);
+  };
+
   before(function () {
     postStub = sinon.stub(rp, 'post').callsFake(option => Promise.resolve(option.body));
   });
@@ -41,22 +55,12 @@ describe('SMTP server', function() {
     return sendmail({
       from: fromAddress,
       to: toAddress,
-      subject: 'This is a test subject',
-      text: 'This is a test text.',
+      subject: expected.subject,
+      text: expected.text,
     }).then((response) => {
-      postStub.called.should.be.true();
-      postStub.callCount.should.equal(1);
-
-      const postStubArg = postStub.args[0][0];
-      const { uri, body } = postStubArg;
-      uri.should.endWith('/api/mail/create');
-      body.subject.should.equal(expected.subject);
-      body.text.trim().should.equal(expected.text);
-      body.from.should.deepEqual(expected.from);
-      body.to.should.deepEqual(expected.to);
-      body.cc.should.deepEqual(expected.cc);
-      body.bcc.should.deepEqual(expected.bcc);
-
+      assertPostStub(postStub, expected, {
+        callCount: 1,
+      });
       return true;
     });
   });
@@ -85,22 +89,12 @@ describe('SMTP server', function() {
     return sendmail({
       from: fromAddress,
       to: toAddresses,
-      subject: 'This is a test subject',
-      text: 'This is a test text.',
+      subject: expected.subject,
+      text: expected.text,
     }).then((response) => {
-      postStub.called.should.be.true();
-      postStub.callCount.should.equal(3);
-
-      const postStubArg = postStub.args[0][0];
-      const { uri, body } = postStubArg;
-      uri.should.endWith('/api/mail/create');
-      body.subject.should.equal(expected.subject);
-      body.text.trim().should.equal(expected.text);
-      body.from.should.deepEqual(expected.from);
-      body.to.should.deepEqual(expected.to);
-      body.cc.should.deepEqual(expected.cc);
-      body.bcc.should.deepEqual(expected.bcc);
-
+      assertPostStub(postStub, expected, {
+        callCount: 3,
+      });
       return true;
     });
   });
