@@ -71,7 +71,7 @@ const makeSmtpConfig = () => {
           return Promise.all(requests);
         }).then((bodies) => {
           winston.debug(bodies);
-          callback();
+          return callback();
         }).catch((err) => {
           winston.error(err);
           callback(err);
