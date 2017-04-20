@@ -1,11 +1,11 @@
 const config = require('config');
 const winston = require('winston');
-const _ = require('lodash');
 const simpleParser = require('mailparser').simpleParser;
 const rp = require('request-promise');
 const urljoin = require('url-join');
-const parseOneAddress = require('email-addresses').parseOneAddress;
 const SMTPServer = require('smtp-server').SMTPServer;
+
+const { extractRecipient } = require('./address');
 
 
 const makeSmtpConfig = () => {
@@ -25,25 +25,7 @@ const makeSmtpConfig = () => {
       });
       stream.on('end', () => {
         simpleParser(buffer).then((mail) => {
-          const recipients = session.envelope.rcptTo.map(({ address }) => {
-            const local = parseOneAddress(address).local;
-            const secretSeparator = '__';
-            const hasSecretCode = lc => _.includes(lc, secretSeparator);
-            if (hasSecretCode(local)) {
-              const localPieces = local.split(secretSeparator);
-              const recipient = localPieces.slice(0, -1);
-              const secretCode = _.last(localPieces);
-              return {
-                recipient,
-                secretCode,
-              };
-            } else {
-              return {
-                recipient: local,
-                secretCode: null,
-              };
-            }
-          });
+          const recipients = session.envelope.rcptTo.map(({ address }) => extractRecipient(address));
           const requests = recipients.map(({ recipient, secretCode }) => {
             const to = mail.to ? mail.to.value : [];
             const from = mail.from ? mail.from.value : [];
