@@ -5,5 +5,6 @@ module.exports = {
   port: 25,
   logLevel: 'info',
   slackErrorLogging: true,
+  smtpLogging: false,
   url: `https://${host}`,
 };

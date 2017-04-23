@@ -62,18 +62,9 @@ const makeSmtpConfig = () => {
     },
   };
 
-  const nodeEnv = config.util.getEnv('NODE_ENV');
-  if (nodeEnv === 'development') {
-    return Object.assign(baseSmtpConfig, {
-      logger: true,
-    });
-  } else if (nodeEnv === 'production') {
-    return Object.assign(baseSmtpConfig, {
-      // Nothing to do currently.
-    });
-  } else {
-    throw new Error(`NODE_ENV ${nodeEnv} is not supported.`);
-  }
+  return Object.assign(baseSmtpConfig, {
+    logger: config.smtpLogging,
+  });
 };
 
 const server = new SMTPServer(makeSmtpConfig());
