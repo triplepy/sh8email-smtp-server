@@ -20,6 +20,7 @@ if (require.main === module) {
     text: 'This is a test text.',
   }).then(() => {
     console.info('Email was sent successfully.');
+    return true;
   }).catch((err) => {
     console.error(err);
   });
