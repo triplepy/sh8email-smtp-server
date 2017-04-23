@@ -28,5 +28,17 @@ describe('address.js', function () {
 
       extractRecipient(given.address).should.deepEqual(expected);
     });
+
+    it('should separate recipient and secretCode with no suprises if the address has many separators', function() {
+      const given = {
+        address: 'getogrand__parts__of__recipient__secret1234@sh8.email',
+      };
+      const expected = {
+        recipient: 'getogrand__parts__of__recipient',
+        secretCode: 'secret1234',
+      };
+
+      extractRecipient(given.address).should.deepEqual(expected);
+    });
   });
 });

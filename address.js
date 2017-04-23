@@ -7,7 +7,7 @@ const extractRecipient = (address) => {
   const hasSecretCode = lc => _.includes(lc, secretSeparator);
   if (hasSecretCode(local)) {
     const localPieces = local.split(secretSeparator);
-    const recipient = _.first(localPieces);
+    const recipient = _.dropRight(localPieces, 1).join(secretSeparator);
     const secretCode = _.last(localPieces);
     return {
       recipient,
