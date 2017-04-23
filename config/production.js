@@ -1,4 +1,4 @@
-const host = 'sh8.email';
+const host = 'sh8.email'
 
 module.exports = {
   host,
@@ -7,4 +7,4 @@ module.exports = {
   slackErrorLogging: true,
   smtpLogging: false,
   url: `https://${host}`,
-};
+}

@@ -18,7 +18,8 @@
     "func-names": "off",
     "newline-per-chained-call": "off",
     "no-unused-vars": ["error", {"args": "none"}],
-    "max-len": "off"
+    "max-len": "off",
+    "semi": ["error", "never"]
   },
   "env": {
     "node": true,

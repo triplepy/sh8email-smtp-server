@@ -1,4 +1,4 @@
-const host = 'localhost';
+const host = 'localhost'
 
 module.exports = {
   host,
@@ -7,4 +7,4 @@ module.exports = {
   slackErrorLogging: false,
   smtpLogging: true,
   url: `http://${host}`,
-};
+}
