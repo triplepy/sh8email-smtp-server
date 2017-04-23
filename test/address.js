@@ -1,13 +1,16 @@
 /* eslint-disable prefer-arrow-callback*/
 
 require('should');
+const config = require('config');
 const { extractRecipient } = require('../address');
 
 describe('address.js', function () {
   describe('extractRecipient(address)', function() {
+    const sep = config.secretSeparator;
+
     it('should return recipient and secretCode if the address has secretCode', function() {
       const given = {
-        address: 'getogrand__secret1234@sh8.email',
+        address: `getogrand${sep}secret1234@sh8.email`,
       };
       const expected = {
         recipient: 'getogrand',
@@ -31,10 +34,10 @@ describe('address.js', function () {
 
     it('should separate recipient and secretCode with no suprises if the address has many separators', function() {
       const given = {
-        address: 'getogrand__parts__of__recipient__secret1234@sh8.email',
+        address: `getogrand${sep}parts${sep}of${sep}recipient${sep}secret1234@sh8.email`,
       };
       const expected = {
-        recipient: 'getogrand__parts__of__recipient',
+        recipient: `getogrand${sep}parts${sep}of${sep}recipient`,
         secretCode: 'secret1234',
       };
 

@@ -1,13 +1,13 @@
 const _ = require('lodash');
+const config = require('config');
 const parseOneAddress = require('email-addresses').parseOneAddress;
 
 const extractRecipient = (address) => {
   const local = parseOneAddress(address).local;
-  const secretSeparator = '__';
-  const hasSecretCode = lc => _.includes(lc, secretSeparator);
+  const hasSecretCode = lc => _.includes(lc, config.secretSeparator);
   if (hasSecretCode(local)) {
-    const localPieces = local.split(secretSeparator);
-    const recipient = _.dropRight(localPieces, 1).join(secretSeparator);
+    const localPieces = local.split(config.secretSeparator);
+    const recipient = _.dropRight(localPieces, 1).join(config.secretSeparator);
     const secretCode = _.last(localPieces);
     return {
       recipient,
