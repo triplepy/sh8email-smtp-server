@@ -1,11 +1,10 @@
 const config = require('config')
 const winston = require('winston')
 const simpleParser = require('mailparser').simpleParser
-const rp = require('request-promise')
-const urljoin = require('url-join')
 const SMTPServer = require('smtp-server').SMTPServer
 
 const { extractRecipient } = require('./address')
+const mailApi = require('./mail-api')
 
 
 const makeSmtpConfig = () => {
@@ -26,31 +25,7 @@ const makeSmtpConfig = () => {
       stream.on('end', () => {
         simpleParser(buffer).then((mail) => {
           const recipients = session.envelope.rcptTo.map(({ address }) => extractRecipient(address))
-          const requests = recipients.map(({ recipient, secretCode }) => {
-            const to = mail.to ? mail.to.value : []
-            const from = mail.from ? mail.from.value : []
-            const cc = mail.cc ? mail.cc.value : []
-            const bcc = mail.bcc ? mail.bcc.value : []
-            return rp.post({
-              uri: urljoin(config.url, 'api/mail/create'),
-              body: {
-                subject: mail.subject,
-                recipient,
-                secretCode,
-                to,
-                from,
-                cc,
-                bcc,
-                date: mail.date,
-                messageId: mail.messageId,
-                html: mail.html,
-                text: mail.text,
-                // TODO Upload attachment files and datas.
-              },
-              json: true,
-            })
-          })
-          return Promise.all(requests)
+          return mailApi.create(mail, recipients)
         }).then((bodies) => {
           winston.debug(bodies)
           return callback()
