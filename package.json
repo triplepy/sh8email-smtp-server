@@ -4,7 +4,7 @@
   "description": "SMTP Server for sh8.email",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "NODE_ENV=test mocha"
   },
   "author": "triplepy",
   "license": "GPL-2.0",
